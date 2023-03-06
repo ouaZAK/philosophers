@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:19:07 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/03/04 17:29:24 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/03/06 08:57:36 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct s_list{
 	int				nbr_to_eat;
 	int				nbr_philo;
 	int				id_philo;
+	int				index;
+	int				time_at_start;
+	int				x;
 }t_list;
 
 // typedef struct s_vars{
@@ -39,9 +42,9 @@ typedef struct s_list{
 // 	t_list *end;
 // }t_vars;
 
-// list
-t_list	*ft_lstnew(int i);
-void	circular_list(t_list **lst, t_list *new);
+long long	timing(t_list *va);
+void	fill_struct(char **av, t_list *va);
+void	check_errors(char **av);
 
 // utils
 int		ft_isdigit(char *str);
