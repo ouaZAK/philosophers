@@ -52,66 +52,19 @@ void	*philosofeur(void *data)
 	return (NULL);
 }
 
-void	allocation(t_list *va)
-{
-	va->check = malloc(sizeof(pthread_mutex_t));
-	va->writing = malloc(sizeof(pthread_mutex_t));
-	if (!va->writing)
-		return ;
-	va->fork = malloc(sizeof(pthread_mutex_t) * va->nbr_philo);
-	if (!va->fork)
-	{
-		free(va->writing);
-		return ;
-	}
-	va->phil = malloc(sizeof(t_philo) * va->nbr_philo);
-	if (!va->phil)
-	{
-		free(va->writing);
-		free(va->fork);
-		return ;
-	}
-}
-
-void	initialisation(t_list *va)
-{
-	int	i;
-
-	i = 0;
-	pthread_mutex_init(va->check, NULL);
-	pthread_mutex_init(va->writing, NULL);
-	while (i < va->nbr_philo)
-	{
-		va->phil[i].id_philo = i;
-		va->phil[i].ate = 0;
-		va->phil[i].died = 0;
-		va->phil[i].vars = va;
-		va->phil[i].all_ate = 0;
-		va->phil[i].r = i;
-		va->phil[i].l = (i + 1) % (va->nbr_philo);
-		// printf("i = %d  l = %d\n",i,va->phil[i].l );
-		if (pthread_mutex_init(&va->fork[i], NULL))
-		{
-			printf("Error\nin mutex init\n");
-			// free
-			return ;
-		}
-		i++;
-	}
-}
-
 void	*ihdiyay(void *data)
 {
 	t_philo	*phil;
-	int		i;
+	// int		i;
 
 	phil = (t_philo *)data;
 	while (!phil->stop)
 	{
-		i = -1;
-		while (++i < phil->vars->nbr_philo)
-		{
-			pthread_mutex_lock(phil->vars->check);
+		// i = -1;
+		// while (++i < phil->vars->nbr_philo)
+		// {
+			pthread_mutex_lock(&phil->check);
+
 			if (phil->vars->nbr_philo != -1)
 				if (phil->ate == phil->vars->nbr_to_eat)
 					phil->stop = 1;
@@ -122,9 +75,9 @@ void	*ihdiyay(void *data)
 				phil->died = 1;
 				phil->stop = 1;
 			}
-			pthread_mutex_unlock(phil->vars->check);
-			// usleep(100);
-		}
+
+			pthread_mutex_unlock(&phil->check);
+		// }
 	}
 	return (NULL);
 }

@@ -12,13 +12,13 @@
 
 #include"philo.h"
 
-long	timeing(char c)
-{
-	struct timeval current_time;
-	gettimeofday(&current_time, NULL);
+// long	timeing(char c)
+// {
+// 	struct timeval current_time;
+// 	gettimeofday(&current_time, NULL);
 	
-	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
-}
+// 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+// }
 
 // void	*do_it(void *data)
 // {
@@ -33,65 +33,65 @@ long	timeing(char c)
 // 	return (x);
 // }
 
-void	*philosofeuur(void *data)
-{
-	t_list	*va;
-	int		n;
-n = -1;
-	va = (t_list *)data;
-	// printf("philo  ==> %d\n", va->nbr_to_eat);
-	pthread_mutex_lock(&va->chopstick);
-	while (++n < va->nbr_philo)
-		va->nbr_to_eat++;
-	// usleep(200);
-	printf("i am philo nbr : %d\n", va->nbr_to_eat);
-	pthread_mutex_unlock(&va->chopstick);
-	// sleep(2);
-	return (NULL);
-}
+// void	*philosofeuur(void *data)
+// {
+// 	t_list	*va;
+// 	int		n;
+// n = -1;
+// 	va = (t_list *)data;
+// 	// printf("philo  ==> %d\n", va->nbr_to_eat);
+// 	pthread_mutex_lock(&va->chopstick);
+// 	while (++n < va->nbr_philo)
+// 		va->nbr_to_eat++;
+// 	// usleep(200);
+// 	printf("i am philo nbr : %d\n", va->nbr_to_eat);
+// 	pthread_mutex_unlock(&va->chopstick);
+// 	// sleep(2);
+// 	return (NULL);
+// }
 
-int	main(int ac, char **av)
-{
-	pthread_t	t[200];
-	t_list		*va;
-	int			i;
-	int			x;
+// int	main(int ac, char **av)
+// {
+// 	pthread_t	t[200];
+// 	t_list		*va;
+// 	int			i;
+// 	int			x;
 
-	i = 0;
-	va = malloc(sizeof(t_list));
-	x = atoi(av[1]);
-	printf("x = %d\n",x);
-	va->nbr_philo = x;
-	va->nbr_to_eat = 0;
-	pthread_mutex_init(&va->chopstick, NULL);
-	while (i < 3)
-	{
-		// va->nbr_philo = i;
-		// printf("va->id = %d\n",va->nbr_philo);
-		if (pthread_create(&t[i], NULL, &philosofeuur, va) != 0)
-		{
-			write(2, "Error\n",6);
-			exit(1);
-		}
-		// usleep(1000);
-		// printf("thread %d started\n",i);
-		i++;
-	}
-	i = 0;
-	while (i < 3)
-	{
-		// printf("%d i\n",i);
-		if (pthread_join(t[i], NULL) != 0)
-		{
-			write(2, "Error\n",6);
-			exit(1);
-		}
-		// printf("thread %d finish\n",i);
-		i++;
-	}
-	pthread_mutex_destroy(&va->chopstick);
+// 	i = 0;
+// 	va = malloc(sizeof(t_list));
+// 	x = atoi(av[1]);
+// 	printf("x = %d\n",x);
+// 	va->nbr_philo = x;
+// 	va->nbr_to_eat = 0;
+// 	pthread_mutex_init(&va->chopstick, NULL);
+// 	while (i < 3)
+// 	{
+// 		// va->nbr_philo = i;
+// 		// printf("va->id = %d\n",va->nbr_philo);
+// 		if (pthread_create(&t[i], NULL, &philosofeuur, va) != 0)
+// 		{
+// 			write(2, "Error\n",6);
+// 			exit(1);
+// 		}
+// 		// usleep(1000);
+// 		// printf("thread %d started\n",i);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < 3)
+// 	{
+// 		// printf("%d i\n",i);
+// 		if (pthread_join(t[i], NULL) != 0)
+// 		{
+// 			write(2, "Error\n",6);
+// 			exit(1);
+// 		}
+// 		// printf("thread %d finish\n",i);
+// 		i++;
+// 	}
+// 	pthread_mutex_destroy(&va->chopstick);
 	
-}
+// }
 
 // int main()
 // {

@@ -5,7 +5,7 @@ int main()
 {
 	int i = -1;
 	while (++i < 5)
-    	printf("%d\n", (i + 1) % 5);
+    	printf("i left = %d  right = %d\n", i, (i + 1) % 5);
 
 }
 // while (1)

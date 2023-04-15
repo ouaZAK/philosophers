@@ -22,6 +22,7 @@
 #include<stdlib.h>
 
 typedef struct philo{
+	pthread_mutex_t	check;
 	pthread_t		thread;
 	int				id_philo;
 	int 			r;
@@ -37,7 +38,6 @@ typedef struct philo{
 typedef struct s_list{
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*writing;
-	pthread_mutex_t	*check;
 	pthread_t		fbi;
 	int				time_to_die;
 	int				time_to_slp;
@@ -54,15 +54,17 @@ typedef struct s_list{
 // 	t_list *end;
 // }t_vars;
 
-t_philo	*ft_lstnew(int i);
-t_philo	*ft_lstlast(t_philo *lst);
-void	ft_lstaddback(t_philo **lst, t_philo *new);
+// t_philo	*ft_lstnew(int i);
+// t_philo	*ft_lstlast(t_philo *lst);
+// void	ft_lstaddback(t_philo **lst, t_philo *new);
 
 
 long long	timing();
 void	fill_struct(char **av, t_list *va);
 void	check_errors(char **av);
 void    printing(char *str, t_philo *phil);
+void	allocation(t_list *va);
+void	initialisation(t_list *va);
 
 // utils
 int		ft_isdigit(char *str);
