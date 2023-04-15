@@ -4,6 +4,7 @@ NAME = philo
 RM = rm -rf
 SRC =	main.c \
 		utils.c \
+		printing.c \
 		# list.c
 
 OBJ = $(SRC:.c=.o)
@@ -15,7 +16,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $^ -o $@
-
+# -fsanitize=thread -g 
 clean:
 	@$(RM) $(OBJ)
 

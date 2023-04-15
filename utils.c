@@ -50,9 +50,8 @@ long	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-long long	timing(t_list *va)
+long long	timing()
 {
-	(void)va;
 	struct timeval current_time;
 	gettimeofday(&current_time, NULL);
 	
@@ -72,7 +71,7 @@ void	fill_struct(char **av, t_list *va)
 			exit(0);
 	}
 	else
-		va->nbr_to_eat = 0;
+		va->nbr_to_eat = -1;
 }
 
 void	check_errors(char **av)
