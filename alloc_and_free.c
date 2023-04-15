@@ -20,4 +20,9 @@ void	allocation(t_list *va)
 	}
 }
 
-// void	exit_free()
+void	exit_free(char *str)
+{
+	printf("%s",str);
+	// free
+	exit(2);
+}

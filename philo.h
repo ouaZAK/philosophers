@@ -60,11 +60,12 @@ typedef struct s_list{
 
 
 long long	timing();
-void	fill_struct(char **av, t_list *va);
-void	check_errors(char **av);
-void    printing(char *str, t_philo *phil);
-void	allocation(t_list *va);
-void	initialisation(t_list *va);
+void		fill_struct(char **av, t_list *va);
+void		check_errors(char **av);
+void    	printing(char *str, t_philo *phil);
+void		allocation(t_list *va);
+void		initialisation(t_list *va);
+void		exit_free(char *str);
 
 // utils
 int		ft_isdigit(char *str);

@@ -94,36 +94,19 @@ void	start(t_list *va)
 		// printf("id = %d\n",va->phil[i].id_philo);
 		if (pthread_create(&va->phil[i].thread, NULL,\
 			 philosofeur, &va->phil[i]))
-		{
-			printf("Error\nin create thread\n");
-			//free
-			return ;
-		}
+			exit_free("Error\nin create thread\n");
+
 		if (pthread_create(&va->fbi, NULL, ihdiyay, &va->phil[i]))
-		{
-			printf("Error\nin create thread\n");
-			//free
-			return ;
-		}
+			exit_free("Error\nin create thread\n");
 		if (pthread_detach(va->fbi))
-		{
-			printf("Error\nin create thread\n");
-			//free
-			return ;
-		}
+			exit_free("Error\nin detach thread\n");
 		usleep(100);
 		i++;
 	}
 	i = 0;
 	while (i < va->nbr_philo)
-	{
 		if (pthread_join(va->phil[i++].thread, NULL))
-		{
-			printf("Error\nin join\n");
-			//free
-			return ;
-		}
-	}
+			exit_free("Error\nin join\n");
 }
 
 int	main(int ac, char **av)
