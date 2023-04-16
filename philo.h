@@ -28,8 +28,6 @@ typedef struct philo{
 	int 			r;
 	int 			l;
 	int				ate;
-	int				died;
-	int				all_ate;
 	int				stop;
 	size_t			time_last_meal;
 	struct s_list	*vars;
@@ -38,7 +36,6 @@ typedef struct philo{
 typedef struct s_list{
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	*writing;
-	pthread_t		fbi;
 	int				time_to_die;
 	int				time_to_slp;
 	int				time_to_eat;
@@ -55,7 +52,7 @@ void		check_errors(char **av);
 void    	printing(char *str, t_philo *phil);
 void		allocation(t_list *va);
 void		initialisation(t_list *va);
-void		exit_free(char *str);
+void		exit_free_msg(t_list*va, char *str, int which);
 void		my_sleep(int tts);
 
 // utils
