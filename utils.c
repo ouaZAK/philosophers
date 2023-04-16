@@ -50,10 +50,19 @@ long	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-long long	timing()
+size_t	timing()
 {
 	struct timeval current_time;
 	gettimeofday(&current_time, NULL);
 	
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+}
+
+void	my_sleep(int tts)
+{
+	size_t	now;
+
+	now = timing();
+	while (timing() - now < (size_t)tts)
+		usleep(250);
 }

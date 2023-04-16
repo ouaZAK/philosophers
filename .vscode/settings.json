@@ -1,5 +1,10 @@
 {
     "files.associations": {
-        "new": "c"
+        "new": "c",
+        "cstddef": "c",
+        "cstdio": "c",
+        "concepts": "c",
+        "type_traits": "c",
+        "typeinfo": "c"
     }
 }

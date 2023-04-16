@@ -19,7 +19,7 @@
 # include <pthread.h>
 # include <string.h>
 # include <limits.h>
-#include<stdlib.h>
+# include <stdlib.h>
 
 typedef struct philo{
 	pthread_mutex_t	check;
@@ -31,7 +31,7 @@ typedef struct philo{
 	int				died;
 	int				all_ate;
 	int				stop;
-	long long		time_last_meal;
+	size_t			time_last_meal;
 	struct s_list	*vars;
 }t_philo;
 
@@ -44,28 +44,19 @@ typedef struct s_list{
 	int				time_to_eat;
 	int				nbr_to_eat;
 	int				nbr_philo;
-	long long		time_at_start;
+	size_t			time_at_start;
 	t_philo			*phil;
 }t_list;
 
-// typedef struct s_vars{
-// 	t_list va;
-// 	t_list *start;
-// 	t_list *end;
-// }t_vars;
-
-// t_philo	*ft_lstnew(int i);
-// t_philo	*ft_lstlast(t_philo *lst);
-// void	ft_lstaddback(t_philo **lst, t_philo *new);
-
-
-long long	timing();
+// func
+size_t		timing();
 void		fill_struct(char **av, t_list *va);
 void		check_errors(char **av);
 void    	printing(char *str, t_philo *phil);
 void		allocation(t_list *va);
 void		initialisation(t_list *va);
 void		exit_free(char *str);
+void		my_sleep(int tts);
 
 // utils
 int		ft_isdigit(char *str);
