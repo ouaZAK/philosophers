@@ -49,6 +49,7 @@ int	ihdiyay(t_philo *phil)
 		i = -1;
 		while (++i < phil->vars->nbr_philo)
 		{
+			usleep(100);
 			// pthread_mutex_lock(&phil->check);
 			if ((int)(timing() - phil->time_last_meal) > phil->vars->time_to_die)
 			{
