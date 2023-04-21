@@ -2,7 +2,11 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 NAME_BNS = philo_bonus
 RM = rm -rf
-SRC_BNS = main.c
+SRC_BNS = 	main_bonus.c \
+			alloc_and_free_bonus.c \
+			check_and_fill_bonus.c \
+			init_bonus.c \
+			utils_bonus.c
 
 OBJ_BNS = $(SRC_BNS:.c=.o)
 

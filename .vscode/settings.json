@@ -5,6 +5,8 @@
         "cstdio": "c",
         "concepts": "c",
         "type_traits": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "cstdlib": "c",
+        "memory": "c"
     }
 }

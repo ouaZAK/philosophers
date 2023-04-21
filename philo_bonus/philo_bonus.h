@@ -6,6 +6,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <sys/time.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <pthread.h>
 # include <semaphore.h>
@@ -23,6 +25,7 @@ typedef struct philo{
 typedef struct s_list{
 	sem_t			*fork;
 	sem_t			*writing;
+	int				*pid;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_slp;
@@ -35,7 +38,12 @@ typedef struct s_list{
 void	check_errors(char **av);
 void	fill_struct(char **av, t_list *va);
 void	initialisation(t_list *va);
-
+void	exit_free_msg(t_list *va, char *str, int which);
+int		ft_isdigit(char *str);
+void	my_sleep(int tts);
+size_t	timing();
+long	ft_atoi(const char *str);
+void	allocation(t_list *va);
 
 
 #endif
