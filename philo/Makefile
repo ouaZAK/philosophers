@@ -19,7 +19,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $^ -o $@
-# -fsanitize=thread -g 
+
 clean:
 	@$(RM) $(OBJ)
 
