@@ -55,5 +55,4 @@ void	exit_free_msg(t_list *va, char *str, int which)
 	free(va->writing);
 	free(va->phil);
 	free(va->fork);
-	exit(which);
 }

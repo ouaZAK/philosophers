@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 09:15:43 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/04 16:53:52 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:32:17 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,27 @@ void	*philosofeur(void *data)
 		usleep(100);
 	while (1)
 	{
-		pthread_mutex_lock(va->vars->writing);
-				// printf("thread stop = ?\n");
-		if (va->vars->stop == 1)
-		{
-				// printf("thread stop = 1\n");
-			pthread_mutex_unlock(va->vars->writing);
-			return (NULL);
-		}
-		pthread_mutex_unlock(va->vars->writing);
-		
 		if (va->vars->nbr_philo != -1)
 		{
 			pthread_mutex_lock(&va->vars->check);
 			if (va->ate == va->vars->nbr_to_eat)
 			{
 				va->vars->all_ate++;
+				// printf("philo %d  ate = %d   all ate = %d\n", va->id_philo + 1, va->ate, va->vars->all_ate);
 				pthread_mutex_unlock(&va->vars->check);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&va->vars->check);
 		}
 		
+		pthread_mutex_lock(va->vars->writing);
+		if (va->vars->stop == 1)
+		{
+			pthread_mutex_unlock(va->vars->writing);
+			return (NULL);
+		}
+		pthread_mutex_unlock(va->vars->writing);
 		
-		printing("is thinking\n", va);
 		pthread_mutex_lock(&va->vars->fork[va->r]);
 		printing("has taken a fork\n", va);
 		pthread_mutex_lock(&va->vars->fork[va->l]);
@@ -60,6 +57,7 @@ void	*philosofeur(void *data)
 		pthread_mutex_unlock(&va->vars->fork[va->l]);
 		printing("is sleeping\n", va);
 		my_sleep(va->vars->time_to_slp);
+		printing("is thinking\n", va);
 		
 		pthread_mutex_lock(&va->vars->check);
 		va->ate++;
@@ -79,28 +77,26 @@ void	ihdiyay(t_philo *phil)
 		while (++i < phil->vars->nbr_philo)
 		{
 			pthread_mutex_lock(&phil->vars->check);
-			if ((int)(timing() - phil->time_last_meal) > phil->vars->time_to_die)
+			if (phil->vars->nbr_to_eat != -1)
 			{
-				// printf("did\n");
+				// printf("all ate = %d\n",phil->vars->all_ate);
+				if (phil->vars->all_ate == phil->vars->nbr_philo)
+				{
+					pthread_mutex_unlock(&phil->vars->check);
+					return ;
+				}
+			}
+			if (((int)(timing() - phil[i].time_last_meal) > phil->vars->time_to_die) && phil[i].ate != phil->vars->nbr_to_eat)
+			{
 				printing("died\n", phil);
-				
 				pthread_mutex_lock(phil->vars->writing);
 				phil->vars->stop = 1;
 				pthread_mutex_unlock(phil->vars->writing);
 				pthread_mutex_unlock(&phil->vars->check);
 				return ;
 			}
-			if (phil->vars->nbr_to_eat != -1)
-			{
-				if (phil->vars->all_ate == phil->vars->nbr_philo)
-				{
-				// printf("all ate = %d\n",phil->vars->all_ate);
-					pthread_mutex_unlock(&phil->vars->check);
-					return ;
-				}
-			}
 			pthread_mutex_unlock(&phil->vars->check);
-			usleep(200);
+			usleep(100);
 		}
 	}
 	return ;
@@ -123,11 +119,11 @@ void	start(t_list *va)
 	}
 	i = 0;
 	ihdiyay(va->phil);
-		exit_free_msg(va, NULL, 0);
-	i = 0;
-	while (i < va->nbr_philo)
-		if (pthread_join(va->phil[i++].thread, NULL))
-			exit_free_msg(va, "Error\nin join\n", 2);
+	exit_free_msg(va, NULL, 0);
+	// i = 0;
+	// while (i < va->nbr_philo)
+	// 	if (pthread_join(va->phil[i++].thread, NULL))
+	// 		exit_free_msg(va, "Error\nin join\n", 2);
 }
 
 int	main(int ac, char **av)
