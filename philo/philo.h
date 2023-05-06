@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 16:19:07 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/04 16:06:34 by zouaraqa         ###   ########.fr       */
+/*   Created: 2023/05/05 16:50:14 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/05/06 12:18:20 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 typedef struct philo{
 	pthread_t		thread;
 	int				id_philo;
-	int 			r;
-	int 			l;
+	int				r;
+	int				l;
 	int				ate;
 	size_t			time_last_meal;
 	struct s_list	*vars;
@@ -33,7 +33,7 @@ typedef struct philo{
 
 typedef struct s_list{
 	pthread_mutex_t	*fork;
-	pthread_mutex_t	*writing;
+	pthread_mutex_t	writing;
 	pthread_mutex_t	check;
 	pthread_mutex_t	check_dead;
 	int				stop;
@@ -48,17 +48,24 @@ typedef struct s_list{
 }t_list;
 
 // func
-size_t		timing();
-void		fill_struct(char **av, t_list *va);
-void		check_errors(char **av);
-void    	printing(char *str, t_philo *phil);
-void		allocation(t_list *va);
-void		initialisation(t_list *va);
-void		exit_free_msg(t_list*va, char *str, int which);
+size_t		timing(void);
+void		printing(char *str, t_philo *phil);
+void		destroy_detach(t_list *va, int which);
+void		taking_forks(t_philo *phil);
+void		eating(t_philo *phil);
+void		sleeping(t_philo *phil);
 void		my_sleep(int tts);
+void		died(t_philo *phil);
+int			check_errors(char **av);
+int			fill_struct(char **av, t_list *va);
+int			allocation(t_list *va);
+int			exit_free_msg(t_list*va, char *str, int which);
+int			initialisation(t_list *va);
+int			check_all_ate(t_philo *phil);
 
 // utils
-int		ft_isdigit(char *str);
-long	ft_atoi(const char *str);
+long		ft_atoi(const char *str);
+int			ft_strlen(char *str);
+int			ft_isdigit(char *str);
 
 #endif

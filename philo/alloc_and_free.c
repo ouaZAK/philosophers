@@ -1,23 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   alloc_and_free.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/05 16:49:32 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/05/06 12:20:05 by zouaraqa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-void	allocation(t_list *va)
+int	allocation(t_list *va)
 {
-	va->writing = malloc(sizeof(pthread_mutex_t));
-	if (!va->writing)
-		exit(2) ;
 	va->fork = malloc(sizeof(pthread_mutex_t) * va->nbr_philo);
 	if (!va->fork)
-	{
-		free(va->writing);
-		exit(2) ;
-	}
+		return (1);
 	va->phil = malloc(sizeof(t_philo) * va->nbr_philo);
 	if (!va->phil)
 	{
-		free(va->writing);
 		free(va->fork);
-		exit (2) ;
+		return (1);
 	}
+	return (0);
 }
 
 void	destroy_detach(t_list *va, int which)
@@ -29,7 +35,7 @@ void	destroy_detach(t_list *va, int which)
 	{
 		while (++i < va->nbr_philo)
 			pthread_mutex_destroy(&va->fork[i]);
-		pthread_mutex_destroy(va->writing);
+		pthread_mutex_destroy(&va->writing);
 	}
 	else
 	{
@@ -38,21 +44,23 @@ void	destroy_detach(t_list *va, int which)
 			pthread_mutex_destroy(&va->fork[i]);
 			pthread_detach(va->phil[i].thread);
 		}
-		pthread_mutex_destroy(va->writing);
+		pthread_mutex_destroy(&va->writing);
 	}
+	free(va->phil);
+	free(va->fork);
 }
 
-void	exit_free_msg(t_list *va, char *str, int which)
+int	exit_free_msg(t_list *va, char *str, int which)
 {
 	if (str)
-		printf("%s",str);
+		printf("%s", str);
 	if (which == 1)
-		pthread_mutex_destroy(va->writing);
+		pthread_mutex_destroy(&va->writing);
 	else if (which == 2)
 		destroy_detach(va, which);
 	else if (which == 0)
 		destroy_detach(va, which);
-	free(va->writing);
 	free(va->phil);
 	free(va->fork);
+	return (1);
 }

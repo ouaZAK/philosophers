@@ -5,12 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 10:04:54 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/03/06 08:56:58 by zouaraqa         ###   ########.fr       */
+/*   Created: 2023/05/05 16:50:33 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/05/06 12:11:34 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
 
 int	ft_isdigit(char *str)
 {
@@ -50,11 +62,11 @@ long	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-size_t	timing()
+size_t	timing(void)
 {
-	struct timeval current_time;
+	struct timeval	current_time;
+
 	gettimeofday(&current_time, NULL);
-	
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 

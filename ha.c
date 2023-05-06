@@ -1,13 +1,20 @@
 #include "philo.h"
 
 
-int main()
+int main(int ac, char **av , char **env)
 {
-	int i = -1;
-	while (++i < 5)
-    	printf("i left = %d  right = %d\n", i, (i + 1) % 5);
-
+	char *avv[] = {"ls",NULL};
+	if (execve("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki", av, env))
+		printf("perm\n");
 }
+
+// int main()
+// {
+// 	int i = -1;
+// 	while (++i < 5)
+//     	printf("i left = %d  right = %d\n", i, (i + 1) % 5);
+
+// }
 // while (1)
 	// {
 	// 	// printf("%lld %d is thinking\n", timing(va), va->id_philo);
