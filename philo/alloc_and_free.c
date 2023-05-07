@@ -42,7 +42,8 @@ void	destroy_detach(t_list *va, int which)
 		while (++i < va->nbr_philo)
 		{
 			pthread_mutex_destroy(&va->fork[i]);
-			pthread_detach(va->phil[i].thread);
+			// pthread_detach(va->phil[i].thread);
+			pthread_join(va->phil[i].thread, NULL);
 		}
 		pthread_mutex_destroy(&va->writing);
 	}

@@ -104,6 +104,8 @@ int	start(t_list *va)
 	}
 	i = 0;
 	ihdiyay(va->phil);
+	if (va->nbr_philo == 1)
+		pthread_mutex_unlock(&va->fork[0]);
 	destroy_detach(va, 0);
 	// exit_free_msg(va, NULL, 0);
 	return (0);

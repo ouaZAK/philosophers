@@ -12,16 +12,6 @@
 
 #include "philo.h"
 
-int	check_empty(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_strlen(str))
-		return (1);
-	return (0);
-}
-
 int	check_errors(char **av)
 {
 	int		y;
@@ -35,7 +25,7 @@ int	check_errors(char **av)
 	}
 	while (av[++y])
 	{
-		if (!ft_isdigit(av[y]) || check_empty(av[y]))
+		if (!ft_isdigit(av[y]) || !ft_strlen(av[y]))
 		{
 			printf("Error\nonly digit\n");
 			return (1);
