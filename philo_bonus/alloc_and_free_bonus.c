@@ -1,26 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   alloc_and_free_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/07 15:03:14 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/05/08 19:09:51 by zouaraqa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
-void	allocation(t_list *va)
+int	allocation(t_list *va)
 {
-	va->fork = sem_open("fork", O_CREAT , 0644, va->nbr_philo);
+	sem_unlink("/fork");
+	sem_unlink("/check");
+	sem_unlink("/writing");
+	sem_unlink("/check_death");
+	va->check_death = sem_open("/check_death", O_CREAT, 0644, 1);
+	if (va->check_death == SEM_FAILED)
+		return (1);
+	va->fork = sem_open("/fork", O_CREAT, 0644, va->nbr_philo);
 	if (va->fork == SEM_FAILED)
-		exit_free_msg(NULL, "Error\nin sem_open\n", 2);
-	va->writing = sem_open("writing", O_CREAT, 0644, 1);
+		return (1);
+	va->check = sem_open("/check", O_CREAT, 0644, 1);
+	if (va->check == SEM_FAILED)
+		return (1);
+	va->writing = sem_open("/writing", O_CREAT, 0644, 1);
 	if (va->writing == SEM_FAILED)
-	{
-		sem_close(va->fork);
-		sem_unlink("fork");
-		exit_free_msg(NULL, "Error\nin sem_open\n", 2);
-	}
+		return (1);
 	va->phil = malloc(sizeof(t_philo) * va->nbr_philo);
 	if (!va->phil)
-	{
-		sem_close(va->fork);
-		sem_unlink("fork");
-		sem_close(va->writing);
-		sem_unlink("writing");
-		exit_free_msg(NULL, "Error\nint malloc\n", 2);
-	}
+		return (1);
+	return (0);
 }
 
 // void	destroy_detach(t_list *va, int which)
@@ -45,7 +58,7 @@ void	allocation(t_list *va)
 // 	}
 // }
 
-void	exit_free_msg(t_list *va, char *str, int which)
+int	exit_free_msg(t_list *va, char *str, int which)
 {
 	if (str)
 		printf("%s",str);
@@ -57,6 +70,6 @@ void	exit_free_msg(t_list *va, char *str, int which)
 	// 	destroy_detach(va, which);
 	free(va->writing);
 	free(va->phil);
-	free(va->fork);
+	// free(va->fork);
 	return (which);
 }

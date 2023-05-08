@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:54:58 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/06 12:20:17 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/07 19:12:59 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	taking_forks(t_philo *phil)
 void	eating(t_philo *phil)
 {
 	printing("is eating\n", phil);
-	my_sleep(phil->vars->time_to_eat);
+	my_sleep(phil->vars->time_to_eat, phil);
 	pthread_mutex_unlock(&phil->vars->fork[phil->r]);
 	pthread_mutex_unlock(&phil->vars->fork[phil->l]);
 }
@@ -31,7 +31,7 @@ void	eating(t_philo *phil)
 void	sleeping(t_philo *phil)
 {
 	printing("is sleeping\n", phil);
-	my_sleep(phil->vars->time_to_slp);
+	my_sleep(phil->vars->time_to_slp, phil);
 }
 
 void	died(t_philo *phil)

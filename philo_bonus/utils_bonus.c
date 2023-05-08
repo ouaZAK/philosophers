@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 10:04:54 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/03/06 08:56:58 by zouaraqa         ###   ########.fr       */
+/*   Created: 2023/05/07 15:02:48 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/05/07 15:02:49 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "philo_bonus.h"
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
 
 int	ft_isdigit(char *str)
 {

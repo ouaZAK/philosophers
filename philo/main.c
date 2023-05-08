@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:46 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/06 12:25:57 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:53:22 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	check_stop(t_philo *phil)
 		pthread_mutex_unlock(&phil->vars->writing);
 		return (1);
 	}
+	pthread_mutex_unlock(&phil->vars->writing);
 	return (0);
 }
 
@@ -45,7 +46,6 @@ void	*philosofeur(void *data)
 	{
 		if (check_stop(va))
 			return (NULL);
-		pthread_mutex_unlock(&va->vars->writing);
 		printing("is thinking\n", va);
 		taking_forks(va);
 		pthread_mutex_lock(&va->vars->check);
@@ -99,7 +99,7 @@ int	start(t_list *va)
 			philosofeur, &va->phil[i]))
 			if (exit_free_msg(va, "Error\nin create thread\n", 2))
 				return (1);
-		usleep(100);
+		usleep(50);
 		i++;
 	}
 	i = 0;
@@ -107,12 +107,7 @@ int	start(t_list *va)
 	if (va->nbr_philo == 1)
 		pthread_mutex_unlock(&va->fork[0]);
 	destroy_detach(va, 0);
-	// exit_free_msg(va, NULL, 0);
 	return (0);
-	// i = 0;
-	// while (i < va->nbr_philo)
-	// 	if (pthread_join(va->phil[i++].thread, NULL))
-	// 		exit_free_msg(va, "Error\nin join\n", 2);
 }
 
 int	main(int ac, char **av)

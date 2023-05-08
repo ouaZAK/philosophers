@@ -6,7 +6,7 @@
 #    By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:49:57 by zouaraqa          #+#    #+#              #
-#    Updated: 2023/05/06 11:56:30 by zouaraqa         ###   ########.fr        #
+#    Updated: 2023/05/08 09:17:04 by zouaraqa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ SRC =	main.c \
 		actions.c \
 		printing.c \
 		alloc_and_free.c \
-		check_and_fill.c \
-		# list.c
+		check_and_fill.c
 
 OBJ = $(SRC:.c=.o)
 

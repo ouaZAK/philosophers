@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:32 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/06 12:20:05 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/07 14:59:14 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	destroy_detach(t_list *va, int which)
 		while (++i < va->nbr_philo)
 		{
 			pthread_mutex_destroy(&va->fork[i]);
-			// pthread_detach(va->phil[i].thread);
 			pthread_join(va->phil[i].thread, NULL);
 		}
 		pthread_mutex_destroy(&va->writing);

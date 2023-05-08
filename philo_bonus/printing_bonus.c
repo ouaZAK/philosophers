@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printing.c                                         :+:      :+:    :+:   */
+/*   printing_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:50:21 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/08 08:50:58 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:04:34 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	printing(char *str, t_philo *phil)
 {
-	pthread_mutex_lock(&phil->vars->writing);
-	if (!phil->vars->stop)
-		printf("%ld %d %s", timing() - phil->vars->time_at_start, \
+	sem_wait(phil->vars->writing);
+	if (!phil->stop)
+		printf("%ld %d %s\n", timing() - phil->vars->time_at_start, \
 			phil->id_philo + 1, str);
-	pthread_mutex_unlock(&phil->vars->writing);
+	sem_post(phil->vars->writing);
 }

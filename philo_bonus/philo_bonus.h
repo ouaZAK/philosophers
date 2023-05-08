@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/07 15:02:54 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/05/08 18:56:40 by zouaraqa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
@@ -19,31 +30,40 @@ typedef struct philo{
 	int				id_philo;
 	int				ate;
 	int				stop;
+	size_t			last_meal;
 	struct s_list	*vars;
 }t_philo;
 
 typedef struct s_list{
 	sem_t			*fork;
 	sem_t			*writing;
+	sem_t			*check;
+	sem_t			*check_death;
 	int				*pid;
+	int				status;
+	int				exit_status;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_slp;
 	int				nbr_to_eat;;
 	int				nbr_philo;
+	int				all_ate;
 	size_t			time_at_start;
 	t_philo			*phil;
 }t_list;
 
-void	check_errors(char **av);
-void	fill_struct(char **av, t_list *va);
-void	initialisation(t_list *va);
-void	exit_free_msg(t_list *va, char *str, int which);
+int		check_errors(char **av);
+int		fill_struct(char **av, t_list *va);
+int		initialisation(t_list *va);
+int		exit_free_msg(t_list *va, char *str, int which);
 int		ft_isdigit(char *str);
 void	my_sleep(int tts);
 size_t	timing();
 long	ft_atoi(const char *str);
-void	allocation(t_list *va);
+int		allocation(t_list *va);
+void	printing(char *str, t_philo *phil);
+
+int		ft_strlen(char *str);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:50:14 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/06 12:18:20 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/07 19:12:44 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		destroy_detach(t_list *va, int which);
 void		taking_forks(t_philo *phil);
 void		eating(t_philo *phil);
 void		sleeping(t_philo *phil);
-void		my_sleep(int tts);
+void		my_sleep(int tts, t_philo *phil);
 void		died(t_philo *phil);
 int			check_errors(char **av);
 int			fill_struct(char **av, t_list *va);

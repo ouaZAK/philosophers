@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:50:33 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/06 12:11:34 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/08 09:17:13 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,17 @@ size_t	timing(void)
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void	my_sleep(int tts)
+void	my_sleep(int tts, t_philo *phil)
 {
 	size_t	now;
 
 	now = timing();
-	while (timing() - now < (size_t)tts)
+	pthread_mutex_lock(&phil->vars->writing);
+	while (timing() - now < (size_t)tts && !phil->vars->stop)
+	{
+		pthread_mutex_unlock(&phil->vars->writing);
 		usleep(250);
+		pthread_mutex_lock(&phil->vars->writing);
+	}
+	pthread_mutex_unlock(&phil->vars->writing);
 }
