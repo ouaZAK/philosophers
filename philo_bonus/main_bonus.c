@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/09 09:26:17 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:04:21 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	*amksa(void *data)
 		sem_wait(phil->vars->check);
 		if (phil->vars->nbr_to_eat != -1)
 		{
-			sem_wait(phil->vars->check_ate);
+			sem_wait(phil->vars->check_death);
 			if (phil->ate == phil->vars->nbr_to_eat)
 			{
-				sem_post(phil->vars->check_ate);
+				sem_post(phil->vars->check_death);
 				sem_post(phil->vars->check);
 				exit (5);
 			}
-			sem_post(phil->vars->check_ate);
+			sem_post(phil->vars->check_death);
 		}
 		if ((int)(timing() - phil->last_meal) > phil->vars->time_to_die)
 			died(phil);
@@ -65,9 +65,9 @@ void	philosofeur(t_philo *phil)
 		sem_post(phil->vars->check);
 		printing("is eating", phil);
 		my_sleep(phil->vars->time_to_eat);
-		sem_wait(phil->vars->check_ate);
+		sem_wait(phil->vars->check_death);
 		phil->ate++;
-		sem_post(phil->vars->check_ate);
+		sem_post(phil->vars->check_death);
 		sem_post(phil->vars->fork);
 		sem_post(phil->vars->fork);
 		printing("is sleeping", phil);
@@ -83,7 +83,7 @@ int	start(t_list *va)
 	va->time_at_start = timing();
 	while (i < va->nbr_philo)
 	{
-		va->phil->last_meal = timing();
+		va->phil[i].last_meal = timing();
 		va->pid[i] = fork();
 		if (va->pid[i] == -1)
 			return (1);
