@@ -6,22 +6,20 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:12 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/07 15:04:52 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:07:00 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
 int	check_errors(char **av)
 {
 	int		y;
 	long	x;
 
 	y = 0;
-	if (ft_atoi(av[1]) > 200)
-	{
-		printf("Error\n no more than 200 thread allowed\n");
+	if (ft_atoi(av[1]) > 200 || ft_atoi(av[1]) == 0)
 		return (1);
-	}
 	while (av[++y])
 	{
 		if (!ft_isdigit(av[y]) || !ft_strlen(av[y]))

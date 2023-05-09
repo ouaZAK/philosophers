@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:02:54 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/08 18:56:40 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:27:17 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <pthread.h>
 # include <semaphore.h>
 # include <signal.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 typedef struct philo{
 	pthread_t		thread;
@@ -38,14 +38,15 @@ typedef struct s_list{
 	sem_t			*fork;
 	sem_t			*writing;
 	sem_t			*check;
-	sem_t			*check_death;
+	sem_t			*check_ate;
 	int				*pid;
+	int				pid_skip;
 	int				status;
 	int				exit_status;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_slp;
-	int				nbr_to_eat;;
+	int				nbr_to_eat;
 	int				nbr_philo;
 	int				all_ate;
 	size_t			time_at_start;
@@ -56,14 +57,15 @@ int		check_errors(char **av);
 int		fill_struct(char **av, t_list *va);
 int		initialisation(t_list *va);
 int		exit_free_msg(t_list *va, char *str, int which);
-int		ft_isdigit(char *str);
-void	my_sleep(int tts);
-size_t	timing();
-long	ft_atoi(const char *str);
 int		allocation(t_list *va);
+size_t	timing(void);
+void	my_sleep(int tts);
 void	printing(char *str, t_philo *phil);
+void	wait_for_childs(t_list *va, int i);
+void	free_all(t_list *va);
 
+long	ft_atoi(const char *str);
+int		ft_isdigit(char *str);
 int		ft_strlen(char *str);
-
 
 #endif

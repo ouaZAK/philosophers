@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:28 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/06 12:03:00 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:42:40 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ int	check_errors(char **av)
 	long	x;
 
 	y = 0;
-	if (ft_atoi(av[1]) > 200)
-	{
-		printf("Error\n no more than 200 thread allowed\n");
+	if (ft_atoi(av[1]) > 200 || ft_atoi(av[1]) == 0)
 		return (1);
-	}
 	while (av[++y])
 	{
 		if (!ft_isdigit(av[y]) || !ft_strlen(av[y]))

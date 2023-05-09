@@ -6,10 +6,9 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:02:48 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/07 15:02:49 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:05:13 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "philo_bonus.h"
 
@@ -63,11 +62,11 @@ long	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-size_t	timing()
+size_t	timing(void)
 {
-	struct timeval current_time;
+	struct timeval	current_time;
+
 	gettimeofday(&current_time, NULL);
-	
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
