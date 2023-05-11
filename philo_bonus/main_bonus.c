@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/09 17:04:21 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:24:45 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	died(t_philo *phil)
 {
-	sem_wait(phil->vars->writing);
+	sem_wait(phil->vars->check_death);
 	phil->stop = 1;
-	sem_post(phil->vars->writing);
+	sem_post(phil->vars->check_death);
 	sem_wait(phil->vars->writing);
 	printf("%ld %d died\n", timing() - phil->vars->time_at_start, \
 	phil->id_philo + 1);
@@ -43,7 +43,7 @@ void	*amksa(void *data)
 			}
 			sem_post(phil->vars->check_death);
 		}
-		if ((int)(timing() - phil->last_meal) > phil->vars->time_to_die)
+		if ((int)(timing() - phil->last_meal) >= phil->vars->time_to_die)
 			died(phil);
 		sem_post(phil->vars->check);
 	}
@@ -53,6 +53,7 @@ void	*amksa(void *data)
 void	philosofeur(t_philo *phil)
 {
 	pthread_create(&phil->thread, NULL, amksa, phil);
+	pthread_detach(phil->thread);
 	while (1)
 	{
 		printing("is thinking", phil);

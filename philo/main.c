@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:46 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/08 12:53:22 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:47:59 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	check_stop(t_philo *phil)
 		}
 		pthread_mutex_unlock(&phil->vars->check);
 	}
-	pthread_mutex_lock(&phil->vars->writing);
+	pthread_mutex_lock(&phil->vars->check_dead);
 	if (phil->vars->stop == 1)
 	{
-		pthread_mutex_unlock(&phil->vars->writing);
+		pthread_mutex_unlock(&phil->vars->check_dead);
 		return (1);
 	}
-	pthread_mutex_unlock(&phil->vars->writing);
+	pthread_mutex_unlock(&phil->vars->check_dead);
 	return (0);
 }
 
@@ -73,7 +73,7 @@ void	ihdiyay(t_philo *phil)
 			pthread_mutex_lock(&phil->vars->check);
 			if (check_all_ate(phil))
 				return ;
-			if (((int)(timing() - phil[i].time_last_meal) > \
+			if (((int)(timing() - phil[i].time_last_meal) >= \
 				phil->vars->time_to_die) \
 				&& phil[i].ate != phil->vars->nbr_to_eat)
 			{
@@ -81,7 +81,6 @@ void	ihdiyay(t_philo *phil)
 				return ;
 			}
 			pthread_mutex_unlock(&phil->vars->check);
-			usleep(100);
 		}
 	}
 	return ;

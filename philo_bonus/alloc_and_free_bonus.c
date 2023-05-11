@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:14 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/09 16:07:54 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/11 11:52:32 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int	allocation(t_list *va)
 	sem_unlink("/check");
 	sem_unlink("/writing");
 	sem_unlink("/check_death");
-	va->pid = malloc(sizeof(int) * va->nbr_philo);
-	if (!va->pid)
-		return (1);
 	va->check_death = sem_open("/check_death", O_CREAT, 0644, 1);
 	if (va->check_death == SEM_FAILED)
 		return (1);
@@ -32,6 +29,9 @@ int	allocation(t_list *va)
 		return (1);
 	va->writing = sem_open("/writing", O_CREAT, 0644, 1);
 	if (va->writing == SEM_FAILED)
+		return (1);
+	va->pid = malloc(sizeof(int) * va->nbr_philo);
+	if (!va->pid)
 		return (1);
 	va->phil = malloc(sizeof(t_philo) * va->nbr_philo);
 	if (!va->phil)
