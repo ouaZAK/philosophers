@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:28 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/09 08:42:40 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:25:17 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	fill_struct(char **av, t_list *va)
 	{
 		va->nbr_to_eat = ft_atoi(av[5]);
 		if (va->nbr_to_eat == 0)
-			return (0);
+			return (1);
 	}
 	else
 		va->nbr_to_eat = -1;
