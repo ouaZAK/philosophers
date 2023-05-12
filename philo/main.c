@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:46 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/11 09:47:59 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:58:16 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	start(t_list *va)
 	ihdiyay(va->phil);
 	if (va->nbr_philo == 1)
 		pthread_mutex_unlock(&va->fork[0]);
-	destroy_detach(va, 0);
+	exit_free_msg(va, NULL, 0);
 	return (0);
 }
 

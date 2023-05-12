@@ -6,12 +6,12 @@
 #    By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:49:57 by zouaraqa          #+#    #+#              #
-#    Updated: 2023/05/10 18:56:22 by zouaraqa         ###   ########.fr        #
+#    Updated: 2023/05/12 12:02:03 by zouaraqa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
+FLAGS = -Wall -Wextra -Werror
 NAME = philo
 RM = rm -rf
 SRC =	main.c \

@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:32 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/07 14:59:14 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:54:45 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	destroy_detach(t_list *va, int which)
 		while (++i < va->nbr_philo)
 			pthread_mutex_destroy(&va->fork[i]);
 		pthread_mutex_destroy(&va->writing);
+		pthread_mutex_destroy(&va->check);
+		pthread_mutex_destroy(&va->check_dead);
 	}
 	else
 	{
@@ -45,9 +47,9 @@ void	destroy_detach(t_list *va, int which)
 			pthread_join(va->phil[i].thread, NULL);
 		}
 		pthread_mutex_destroy(&va->writing);
+		pthread_mutex_destroy(&va->check);
+		pthread_mutex_destroy(&va->check_dead);
 	}
-	free(va->phil);
-	free(va->fork);
 }
 
 int	exit_free_msg(t_list *va, char *str, int which)
@@ -55,7 +57,11 @@ int	exit_free_msg(t_list *va, char *str, int which)
 	if (str)
 		printf("%s", str);
 	if (which == 1)
+	{
 		pthread_mutex_destroy(&va->writing);
+		pthread_mutex_destroy(&va->check);
+		pthread_mutex_destroy(&va->check_dead);
+	}
 	else if (which == 2)
 		destroy_detach(va, which);
 	else if (which == 0)
