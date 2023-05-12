@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 11:37:01 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:12:17 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	start(t_list *va)
 		i++;
 	}
 	wait_for_childs(va, i);
-	free_all(va);
+	free_all(va, 0);
 	return (0);
 }
 

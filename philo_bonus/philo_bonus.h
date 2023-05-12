@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:02:54 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/09 13:03:28 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:12:10 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ size_t	timing(void);
 void	my_sleep(int tts);
 void	printing(char *str, t_philo *phil);
 void	wait_for_childs(t_list *va, int i);
-void	free_all(t_list *va);
+void	free_all(t_list *va, int nb);
 
 long	ft_atoi(const char *str);
 int		ft_isdigit(char *str);
