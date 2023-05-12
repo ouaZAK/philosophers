@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/11 12:09:02 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:37:01 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	died(t_philo *phil)
 {
-	sem_wait(phil->vars->check_death);
+	sem_wait(phil->vars->writing);
 	phil->stop = 1;
-	sem_post(phil->vars->check_death);
+	sem_post(phil->vars->writing);
 	sem_wait(phil->vars->writing);
 	printf("%ld %d died\n", timing() - phil->vars->time_at_start, \
 	phil->id_philo + 1);
