@@ -6,13 +6,13 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:46 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 18:50:32 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:31:34 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_stop(t_philo *phil)
+static int	check_stop(t_philo *phil)
 {
 	if (phil->vars->nbr_philo != -1)
 	{
@@ -35,32 +35,33 @@ int	check_stop(t_philo *phil)
 	return (0);
 }
 
-void	*philosofeur(void *data)
+static void	*philosopher(void *data)
 {
 	t_philo	*va;
 
 	va = (t_philo *)data;
 	if ((va->id_philo + 1) % 2 == 0)
-		usleep(100);
+		my_sleep(va->vars->time_to_eat / 2, va);
+	printing("is thinking\n", va);
 	while (1)
 	{
 		if (check_stop(va))
 			return (NULL);
-		printing("is thinking\n", va);
 		taking_forks(va);
 		pthread_mutex_lock(&va->vars->check);
 		va->time_last_meal = timing();
 		pthread_mutex_unlock(&va->vars->check);
 		eating(va);
-		sleeping(va);
 		pthread_mutex_lock(&va->vars->check);
 		va->ate++;
 		pthread_mutex_unlock(&va->vars->check);
+		sleeping(va);
+		printing("is thinking\n", va);
 	}
 	return (NULL);
 }
 
-void	ihdiyay(t_philo *phil)
+static void	the_watcher(t_list *va)
 {
 	int	i;
 
@@ -68,25 +69,25 @@ void	ihdiyay(t_philo *phil)
 	while (1)
 	{
 		i = -1;
-		while (++i < phil->vars->nbr_philo)
+		while (++i < va->nbr_philo)
 		{
-			pthread_mutex_lock(&phil->vars->check);
-			if (check_all_ate(phil))
+			pthread_mutex_lock(&va->check);
+			if (check_all_ate(va))
 				return ;
-			if (((int)(timing() - phil[i].time_last_meal) >= \
-				phil->vars->time_to_die) \
-				&& phil[i].ate != phil->vars->nbr_to_eat)
+			if (((int)(timing() - va->phil[i].time_last_meal) >= \
+				va->time_to_die) \
+				&& va->phil[i].ate != va->nbr_to_eat)
 			{
-				died(phil);
+				died(va, i);
 				return ;
 			}
-			pthread_mutex_unlock(&phil->vars->check);
+			pthread_mutex_unlock(&va->check);
 		}
 	}
 	return ;
 }
 
-int	start(t_list *va)
+static int	start(t_list *va)
 {
 	int	i;
 
@@ -95,14 +96,14 @@ int	start(t_list *va)
 	{
 		va->phil[i].time_last_meal = timing();
 		if (pthread_create(&va->phil[i].thread, NULL, \
-			philosofeur, &va->phil[i]))
+			philosopher, &va->phil[i]))
 			if (exit_free_msg(va, "Error\nin create thread\n", 2))
 				return (1);
-		usleep(50);
+		// usleep(50);
 		i++;
 	}
 	i = 0;
-	ihdiyay(va->phil);
+	the_watcher(va);
 	if (va->nbr_philo == 1)
 		pthread_mutex_unlock(&va->fork[0]);
 	exit_free_msg(va, NULL, 0);

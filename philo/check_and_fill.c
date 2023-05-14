@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:28 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/11 13:25:17 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:26:30 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	check_errors(char **av)
 	return (0);
 }
 
-int	check_all_ate(t_philo *phil)
+int	check_all_ate(t_list *va)
 {
-	if (phil->vars->nbr_to_eat != -1)
+	if (va->nbr_to_eat != -1)
 	{
-		if (phil->vars->all_ate == phil->vars->nbr_philo)
+		if (va->all_ate == va->nbr_philo)
 		{
-			pthread_mutex_unlock(&phil->vars->check);
+			pthread_mutex_unlock(&va->check);
 			return (1);
 		}
 	}

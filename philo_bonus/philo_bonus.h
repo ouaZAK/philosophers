@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:02:54 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 19:12:10 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/14 09:42:43 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_list{
 	sem_t			*writing;
 	sem_t			*check;
 	sem_t			*check_death;
-	int				*pid;
-	int				pid_skip;
+	pid_t			*pid;
+	pid_t			pid_skip;
 	int				status;
 	int				exit_status;
 	int				time_to_die;

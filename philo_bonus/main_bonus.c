@@ -6,13 +6,13 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 19:12:17 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:35:12 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	died(t_philo *phil)
+static void	died(t_philo *phil)
 {
 	sem_wait(phil->vars->writing);
 	phil->stop = 1;
@@ -24,7 +24,7 @@ void	died(t_philo *phil)
 	exit (2);
 }
 
-void	*amksa(void *data)
+static void	*the_watcher(void *data)
 {
 	t_philo	*phil;
 
@@ -50,9 +50,9 @@ void	*amksa(void *data)
 	return (NULL);
 }
 
-void	philosofeur(t_philo *phil)
+static void	philosopher(t_philo *phil)
 {
-	pthread_create(&phil->thread, NULL, amksa, phil);
+	pthread_create(&phil->thread, NULL, the_watcher, phil);
 	pthread_detach(phil->thread);
 	while (1)
 	{
@@ -76,7 +76,7 @@ void	philosofeur(t_philo *phil)
 	}
 }
 
-int	start(t_list *va)
+static int	start(t_list *va)
 {
 	int	i;
 
@@ -89,7 +89,7 @@ int	start(t_list *va)
 		if (va->pid[i] == -1)
 			return (1);
 		if (va->pid[i] == 0)
-			philosofeur(&va->phil[i]);
+			philosopher(&va->phil[i]);
 		i++;
 	}
 	wait_for_childs(va, i);

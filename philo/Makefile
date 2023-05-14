@@ -6,7 +6,7 @@
 #    By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 16:49:57 by zouaraqa          #+#    #+#              #
-#    Updated: 2023/05/12 18:50:36 by zouaraqa         ###   ########.fr        #
+#    Updated: 2023/05/14 10:17:58 by zouaraqa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ SRC =	main.c \
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(FLAGS) $^ -o $@
+	$(CC) $(FLAGS) $^ -o $@
 
 clean:
 	@$(RM) $(OBJ)

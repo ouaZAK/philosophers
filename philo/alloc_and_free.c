@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:32 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 15:54:45 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:36:44 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	allocation(t_list *va)
 	return (0);
 }
 
-void	destroy_detach(t_list *va, int which)
+static void	destroy_detach(t_list *va, int which)
 {
 	int	i;
 

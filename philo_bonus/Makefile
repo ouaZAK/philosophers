@@ -6,7 +6,7 @@
 #    By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 15:02:39 by zouaraqa          #+#    #+#              #
-#    Updated: 2023/05/09 09:47:35 by zouaraqa         ###   ########.fr        #
+#    Updated: 2023/05/14 10:18:31 by zouaraqa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,12 @@ SRC_BNS = 	main_bonus.c \
 OBJ_BNS = $(SRC_BNS:.c=.o)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME_BNS)
 
 $(NAME_BNS): $(OBJ_BNS)
-	@$(CC) $(FLAGS) $^ -o $@
+	$(CC) $(FLAGS) $^ -o $@
 
 clean:
 	@$(RM) $(OBJ_BNS)

@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:50:14 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/07 19:12:44 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:28:29 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,17 @@ typedef struct s_list{
 // func
 size_t		timing(void);
 void		printing(char *str, t_philo *phil);
-void		destroy_detach(t_list *va, int which);
 void		taking_forks(t_philo *phil);
 void		eating(t_philo *phil);
 void		sleeping(t_philo *phil);
 void		my_sleep(int tts, t_philo *phil);
-void		died(t_philo *phil);
+void		died(t_list *va, int i);
 int			check_errors(char **av);
 int			fill_struct(char **av, t_list *va);
 int			allocation(t_list *va);
 int			exit_free_msg(t_list*va, char *str, int which);
 int			initialisation(t_list *va);
-int			check_all_ate(t_philo *phil);
+int			check_all_ate(t_list *va);
 
 // utils
 long		ft_atoi(const char *str);

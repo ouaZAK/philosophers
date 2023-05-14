@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:50:33 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/10 18:57:33 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/14 10:17:17 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,6 @@ size_t	timing(void)
 	gettimeofday(&current_time, NULL);
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
-
-// void	my_sleep(long time)
-// {
-// 	size_t	now;
-
-// 	now = timing() + time;
-// 	while (timing() < now)
-// 		usleep(200);
-// }
 
 void	my_sleep(int tts, t_philo *phil)
 {
