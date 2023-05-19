@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:32 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 19:36:44 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:22:12 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	destroy_detach(t_list *va, int which)
 int	exit_free_msg(t_list *va, char *str, int which)
 {
 	if (str)
-		printf("%s", str);
+		write(2, str, ft_strlen(str));
 	if (which == 1)
 	{
 		pthread_mutex_destroy(&va->writing);

@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:23 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 15:52:30 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:28:07 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	initialisation(t_list *va)
 
 	i = 0;
 	if (init_mutexes(va))
-		return (exit_free_msg(va, "Error\nin mutex init\n", 3), 1);
+		return (exit_free_msg(va, "Error\n", 3), 1);
 	va->stop = 0;
 	va->all_ate = 0;
 	while (i < va->nbr_philo)
@@ -47,7 +47,7 @@ int	initialisation(t_list *va)
 		va->phil[i].r = i;
 		va->phil[i].l = (i + 1) % (va->nbr_philo);
 		if (pthread_mutex_init(&va->fork[i], NULL))
-			if (exit_free_msg(va, "Error\nin mutex init\n", 1))
+			if (exit_free_msg(va, "Error\n", 1))
 				return (1);
 		i++;
 	}

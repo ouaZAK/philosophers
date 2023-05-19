@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:12 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/11 13:23:01 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:24:14 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	check_errors(char **av)
 	{
 		if (!ft_isdigit(av[y]) || !ft_strlen(av[y]))
 		{
-			printf("Error\nonly digit\n");
+			write(2, "Error\n", 6);
 			return (1);
 		}
 		x = ft_atoi(av[y]);
 		if (x < 0 || x > INT_MAX)
 		{
-			printf("Error\nno negative allowed\nno more than max int\n");
+			write(2, "Error\n", 6);
 			return (1);
 		}
 	}

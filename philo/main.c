@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:46 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/14 13:31:34 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/19 11:52:58 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,8 @@ static int	start(t_list *va)
 		va->phil[i].time_last_meal = timing();
 		if (pthread_create(&va->phil[i].thread, NULL, \
 			philosopher, &va->phil[i]))
-			if (exit_free_msg(va, "Error\nin create thread\n", 2))
+			if (exit_free_msg(va, "Error\n", 2))
 				return (1);
-		// usleep(50);
 		i++;
 	}
 	i = 0;
@@ -115,7 +114,7 @@ int	main(int ac, char **av)
 	t_list	va;
 
 	if (ac != 5 && ac != 6)
-		printf("wrong args\n");
+		write(2, "wrong args\n", 11);
 	else
 	{
 		if (check_errors(av) || fill_struct(av, &va) \

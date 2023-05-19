@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/12 19:35:12 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:06:21 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int ac, char **av)
 	t_list	va;
 
 	if (ac != 5 && ac != 6)
-		printf("wrong args");
+		write(2, "wrong args", 10);
 	else
 	{
 		if (check_errors(av) || fill_struct(av, &va) \
