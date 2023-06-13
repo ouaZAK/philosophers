@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+         #
+#    By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 15:02:39 by zouaraqa          #+#    #+#              #
-#    Updated: 2023/05/19 12:06:26 by zouaraqa         ###   ########.fr        #
+#    Updated: 2023/06/12 09:38:28 by zouaraqa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 NAME_BNS = philo_bonus
 RM = rm -rf
-SRC_BNS = 	main_bonus.c \
+SRC_BNS = 	init.c \
+			main_bonus.c \
 			utils_bonus.c \
 			waiting_bonus.c \
 			printing_bonus.c \

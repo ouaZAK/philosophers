@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   waiting_bonus.c                                    :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 09:22:22 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/06/12 09:38:36 by zouaraqa         ###   ########.fr       */
+/*   Created: 2023/06/11 18:34:23 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/06/12 09:38:24 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	wait_for_childs(t_list *va, int i)
+int	initialisation(t_list *va)
 {
-	int	n;
+	int	i;
 
-	n = i;
-	while (i--)
+	i = -1;
+	va->status = 5;
+	while (++i < va->nbr_philo)
 	{
-		va->pid_skip = waitpid(-1, &va->exit_status, 0);
-		va->status = (va->exit_status >> 8) & 0x000000ff;
-		if (va->status != 5)
-			break ;
+		va->phil[i].id_philo = i;
+		va->phil[i].stop = 0;
+		va->phil[i].ate = 0;
+		va->phil[i].vars = va;
 	}
-	if (va->status != 5)
-	{
-		while (n--)
-		{
-			if (va->pid[n] != va->pid_skip)
-				kill(va->pid[n], SIGKILL);
-		}
-	}
+	return (0);
 }

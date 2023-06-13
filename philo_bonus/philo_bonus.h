@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:02:54 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/19 15:03:57 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:38:30 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 typedef struct philo{
 	pthread_t		thread;
 	int				id_philo;
+	int				last;
 	int				ate;
 	int				stop;
 	size_t			last_meal;
@@ -35,6 +36,7 @@ typedef struct philo{
 }t_philo;
 
 typedef struct s_list{
+	sem_t			*ate;
 	sem_t			*fork;
 	sem_t			*writing;
 	sem_t			*check;
@@ -63,6 +65,7 @@ void	my_sleep(int tts);
 void	printing(char *str, t_philo *phil);
 void	wait_for_childs(t_list *va, int i);
 void	free_all(t_list *va, int nb);
+int		initialisation(t_list *va);
 
 long	ft_atoi(const char *str);
 int		ft_isdigit(char *str);

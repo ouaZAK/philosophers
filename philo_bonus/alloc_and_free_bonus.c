@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_and_free_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:14 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/19 12:06:34 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:38:19 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	unlink_sem(void)
 {
+	sem_unlink("/ate");
 	sem_unlink("/fork");
 	sem_unlink("/check");
 	sem_unlink("/writing");
@@ -37,23 +38,9 @@ static void	alloc_ph_fork(t_list *va)
 	}
 }
 
-int	allocation(t_list *va)
+int	for_norm(t_list *va)
 {
-	unlink_sem();
-	va->check_death = sem_open("/check_death", O_CREAT, 0600, 1);
-	if (va->check_death == SEM_FAILED)
-		return (1);
-	va->fork = sem_open("/fork", O_CREAT, 0600, va->nbr_philo);
-	if (va->fork == SEM_FAILED)
-		return (sem_close(va->check_death), sem_unlink("/check_death"), 1);
-	va->check = sem_open("/check", O_CREAT, 0600, 1);
-	if (va->check == SEM_FAILED)
-	{
-		sem_close(va->check_death);
-		sem_close(va->fork);
-		return (sem_unlink("/check_death"), sem_unlink("/fork"), 1);
-	}
-	va->writing = sem_open("/writing", O_CREAT, 0600, 1);
+	va->writing = sem_open("/writing", O_CREAT, 0644, 1);
 	if (va->writing == SEM_FAILED)
 	{
 		sem_close(va->check_death);
@@ -62,23 +49,41 @@ int	allocation(t_list *va)
 		sem_unlink("/check_death");
 		return (sem_unlink("/check"), sem_unlink("/fork"), 1);
 	}
-	alloc_ph_fork(va);
+	va->ate = sem_open("/ate", O_CREAT, 0644, 0);
+	if (va->ate == SEM_FAILED)
+	{
+		sem_close(va->check_death);
+		sem_close(va->fork);
+		sem_close(va->check);
+		sem_close(va->writing);
+		sem_unlink("/check_death");
+		sem_unlink("/fork");
+		sem_unlink("/check");
+		sem_unlink("/writing");
+		return (1);
+	}
 	return (0);
 }
 
-int	initialisation(t_list *va)
+int	allocation(t_list *va)
 {
-	int	i;
-
-	i = -1;
-	va->status = 5;
-	while (++i < va->nbr_philo)
+	unlink_sem();
+	va->check_death = sem_open("/check_death", O_CREAT, 0600, 1);
+	if (va->check_death == SEM_FAILED)
+		return (1);
+	va->fork = sem_open("/fork", O_CREAT, 0644, va->nbr_philo);
+	if (va->fork == SEM_FAILED)
+		return (sem_close(va->check_death), sem_unlink("/check_death"), 1);
+	va->check = sem_open("/check", O_CREAT, 0644, 1);
+	if (va->check == SEM_FAILED)
 	{
-		va->phil[i].id_philo = i;
-		va->phil[i].stop = 0;
-		va->phil[i].ate = 0;
-		va->phil[i].vars = va;
+		sem_close(va->check_death);
+		sem_close(va->fork);
+		return (sem_unlink("/check_death"), sem_unlink("/fork"), 1);
 	}
+	if (for_norm(va))
+		return (1);
+	alloc_ph_fork(va);
 	return (0);
 }
 
@@ -89,10 +94,12 @@ void	free_all(t_list *va, int nb)
 		free(va->phil);
 		free(va->pid);
 	}
+	sem_close(va->ate);
 	sem_close(va->fork);
 	sem_close(va->writing);
 	sem_close(va->check);
 	sem_close(va->check_death);
+	sem_unlink("/ate");
 	sem_unlink("/fork");
 	sem_unlink("/writing");
 	sem_unlink("/check");

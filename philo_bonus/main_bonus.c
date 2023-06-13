@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:03:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/19 12:06:21 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:38:26 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	died(t_philo *phil)
 	printf("%ld %d died\n", timing() - phil->vars->time_at_start, \
 	phil->id_philo + 1);
 	sem_post(phil->vars->check);
-	exit (2);
+	sem_post(phil->vars->ate);
 }
 
 static void	*the_watcher(void *data)
@@ -35,11 +35,12 @@ static void	*the_watcher(void *data)
 		if (phil->vars->nbr_to_eat != -1)
 		{
 			sem_wait(phil->vars->check_death);
-			if (phil->ate == phil->vars->nbr_to_eat)
+			if (phil->ate == phil->vars->nbr_to_eat
+				&& phil->last == phil->vars->nbr_philo)
 			{
 				sem_post(phil->vars->check_death);
 				sem_post(phil->vars->check);
-				exit (5);
+				sem_post(phil->vars->ate);
 			}
 			sem_post(phil->vars->check_death);
 		}
@@ -84,6 +85,7 @@ static int	start(t_list *va)
 	va->time_at_start = timing();
 	while (i < va->nbr_philo)
 	{
+		va->phil[i].last = i + 1;
 		va->phil[i].last_meal = timing();
 		va->pid[i] = fork();
 		if (va->pid[i] == -1)
@@ -92,7 +94,9 @@ static int	start(t_list *va)
 			philosopher(&va->phil[i]);
 		i++;
 	}
-	wait_for_childs(va, i);
+	sem_wait(va->ate);
+	while (i--)
+		kill(va->pid[i], SIGKILL);
 	free_all(va, 0);
 	return (0);
 }

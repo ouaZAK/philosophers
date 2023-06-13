@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zouaraqa <zouaraqa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:49:46 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/05/19 11:52:58 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:38:48 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_stop(t_philo *phil)
 {
-	if (phil->vars->nbr_philo != -1)
+	if (phil->vars->nbr_to_eat != -1)
 	{
 		pthread_mutex_lock(&phil->vars->check);
 		if (phil->ate == phil->vars->nbr_to_eat)
@@ -40,9 +40,9 @@ static void	*philosopher(void *data)
 	t_philo	*va;
 
 	va = (t_philo *)data;
+	printing("is thinking\n", va);
 	if ((va->id_philo + 1) % 2 == 0)
 		my_sleep(va->vars->time_to_eat / 2, va);
-	printing("is thinking\n", va);
 	while (1)
 	{
 		if (check_stop(va))
